@@ -18,12 +18,13 @@
     <Company>Rube200-Devs</Company>
     <Description>Support rocketmod plugins to use OpenMod Economy</Description>
     <LangVersion>8</LangVersion>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <RootNamespace>RG.UconomyToEconomyProvider</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="OpenMod.Extensions.Economy.Abstractions" Version="1.1.9" />
     <PackageReference Include="OpenMod.Unturned" Version="1.1.9" />
+    <PackageReference Include="Rocketmod.Uconomy.Redist" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Uconomy">
