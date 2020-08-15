@@ -6,9 +6,9 @@
     <PackageId>$(AssemblyName)</PackageId>
     <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
     <PackageOwners>Rube200</PackageOwners>
-    <PackageProjectUrl>https://github.com/rube200/UconomyToEconomyProvider</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/rube200/UconomyToOpenMod</PackageProjectUrl>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PackageTags>OpenMod Plugin OpenMod.Economy OpenMod-Plugin Uconomy UconomyToEconomy</PackageTags>
+    <PackageTags>OpenMod Plugin OpenMod.Economy OpenMod-Plugin Uconomy UconomyToOpenMod</PackageTags>
 
     <GenerateNugetPackage>true</GenerateNugetPackage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -18,12 +18,15 @@
     <Company>Rube200-Devs</Company>
     <Description>Support rocketmod plugins to use OpenMod Economy</Description>
     <LangVersion>8</LangVersion>
-    <Version>1.0.2</Version>
-    <RootNamespace>RG.UconomyToEconomyProvider</RootNamespace>
+    <Version>1.0.3</Version>
+    <RootNamespace>RG.UconomyToOpenMod</RootNamespace>
+    <FileVersion>1.0.3.0</FileVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="OpenMod.Extensions.Economy.Abstractions" Version="1.1.9" />
-    <PackageReference Include="OpenMod.Unturned" Version="1.1.9" />
+    <PackageReference Include="OpenMod.Core" Version="1.2.1" />
+    <PackageReference Include="OpenMod.Extensions.Economy.Abstractions" Version="1.2.1" />
+    <PackageReference Include="OpenMod.Rocket.Core" Version="1.2.1" />
+    <PackageReference Include="OpenMod.Unturned" Version="1.2.1" />
     <PackageReference Include="Rocketmod.Uconomy.Redist" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>
