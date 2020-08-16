@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <PackageAuthors>Rube200</PackageAuthors>
+    <PackageId>$(AssemblyName)</PackageId>
+    <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
+    <PackageOwners>Rube200</PackageOwners>
+    <PackageProjectUrl>https://github.com/rube200/UconomyToOpenMod</PackageProjectUrl>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageTags>OpenMod Plugin OpenMod.Economy OpenMod-Plugin Uconomy UconomyToOpenMod</PackageTags>
+
+    <GenerateNugetPackage>true</GenerateNugetPackage>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+
+    <Authors>Rube200</Authors>
+    <Company>Rube200-Devs</Company>
+    <Description>Support rocketmod plugins to use OpenMod Economy</Description>
+    <LangVersion>8</LangVersion>
+    <Version>1.0.4</Version>
+    <RootNamespace>RG.UconomyToOpenMod</RootNamespace>
+  </PropertyGroup>
+</Project>
