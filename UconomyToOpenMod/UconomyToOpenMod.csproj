@@ -1,27 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net461</TargetFramework>
-
-    <PackageAuthors>Rube200</PackageAuthors>
-    <PackageId>$(AssemblyName)</PackageId>
-    <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
-    <PackageOwners>Rube200</PackageOwners>
-    <PackageProjectUrl>https://github.com/rube200/UconomyToOpenMod</PackageProjectUrl>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PackageTags>OpenMod Plugin OpenMod.Economy OpenMod-Plugin Uconomy UconomyToOpenMod</PackageTags>
-
-    <GenerateNugetPackage>true</GenerateNugetPackage>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-
-    <AssemblyVersion>1.0.1</AssemblyVersion>
-    <Authors>Rube200</Authors>
-    <Company>Rube200-Devs</Company>
-    <Description>Support rocketmod plugins to use OpenMod Economy</Description>
-    <LangVersion>8</LangVersion>
-    <Version>1.0.3</Version>
-    <RootNamespace>RG.UconomyToOpenMod</RootNamespace>
-    <FileVersion>1.0.3.0</FileVersion>
   </PropertyGroup>
+    
+  <Import Project="Plugin.props" />
+
   <ItemGroup>
     <PackageReference Include="OpenMod.Core" Version="1.2.1" />
     <PackageReference Include="OpenMod.Extensions.Economy.Abstractions" Version="1.2.1" />
@@ -29,6 +12,7 @@
     <PackageReference Include="OpenMod.Unturned" Version="1.2.1" />
     <PackageReference Include="Rocketmod.Uconomy.Redist" Version="1.0.1" />
   </ItemGroup>
+  
   <ItemGroup>
     <Reference Include="Uconomy">
       <HintPath>Libs\Uconomy.dll</HintPath>
