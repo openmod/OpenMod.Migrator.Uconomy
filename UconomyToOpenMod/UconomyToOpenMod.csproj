@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project>
   <PropertyGroup>
     <TargetFramework>net461</TargetFramework>
   </PropertyGroup>
@@ -11,11 +11,5 @@
     <PackageReference Include="OpenMod.Rocket.Core" Version="1.2.1" />
     <PackageReference Include="OpenMod.Unturned" Version="1.2.1" />
     <PackageReference Include="Rocketmod.Uconomy.Redist" Version="1.0.1" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <Reference Include="Uconomy">
-      <HintPath>Libs\Uconomy.dll</HintPath>
-    </Reference>
   </ItemGroup>
 </Project>
