@@ -10,5 +10,5 @@ You will also need to have Uconomy installed with rocketmod bridge.
 
 ### Data Migration
 It is now possible to migrate uconomy data to openmod.
-Just run this command:`MigrateUconomy [DeleteAfterMigrate]` (Console only)
+Just run this command: `MigrateUconomy [DeleteAfterMigrate]` (Console only)
 'DeleteAfterMigrate' (true/false) is optional, this parameter deletes the old uconomy database after migrating it.
