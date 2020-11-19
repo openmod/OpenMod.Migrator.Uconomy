@@ -24,18 +24,16 @@ namespace RG.UconomyToOpenMod
                 return;
 
             // ReSharper disable once VirtualMemberCallInConstructor
-            Uconomy.Instance = ActivatorUtilities.CreateInstance<Uconomy>(serviceProvider, WorkingDirectory);
+            Uconomy.Instance = ActivatorUtilities.CreateInstance<Uconomy>(serviceProvider);
         }
 
         protected override UniTask OnLoadAsync()
         {
-            Uconomy.Instance.Load();
             return UniTask.CompletedTask;
         }
 
         protected override UniTask OnUnloadAsync()
         {
-            Uconomy.Instance.Unload();
             return UniTask.CompletedTask;
         }
     }

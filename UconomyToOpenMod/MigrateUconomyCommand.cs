@@ -3,7 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using fr34kyn01535.Uconomy;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using MySqlConnector;
 using OpenMod.API.Commands;
@@ -11,7 +11,6 @@ using OpenMod.Core.Commands;
 using OpenMod.Core.Console;
 using OpenMod.Core.Users;
 using OpenMod.Extensions.Economy.Abstractions;
-using Rocket.API;
 
 #endregion
 
@@ -24,13 +23,15 @@ namespace RG.UconomyToOpenMod
     [CommandSyntax("[DeleteAfterMigrate]")]
     public class MigrateUconomyCommand : Command
     {
+        private readonly IConfiguration m_Configuration;
         private readonly IEconomyProvider m_EconomyProvider;
         private readonly ILogger<MigrateUconomyCommand> m_Logger;
 
-        public MigrateUconomyCommand(IEconomyProvider economyProvider, ILogger<MigrateUconomyCommand> logger,
+        public MigrateUconomyCommand(IConfiguration configuration, IEconomyProvider economyProvider, ILogger<MigrateUconomyCommand> logger,
             IServiceProvider serviceProvider) : base(
             serviceProvider)
         {
+            m_Configuration = configuration;
             m_EconomyProvider = economyProvider;
             m_Logger = logger;
         }
@@ -41,24 +42,23 @@ namespace RG.UconomyToOpenMod
             if (Context.Parameters.Length > 0)
                 shouldDelete = await Context.Parameters.GetAsync<bool>(0);
 
-            if (Uconomy.Instance == null || Uconomy.Instance.State != PluginState.Loaded)
-                throw new UserFriendlyException("Uconomy needs to be loaded!");
             await Context.Actor.PrintMessageAsync("Starting data migration, this may take some time.");
 
             try
             {
-                if (Uconomy.Instance.Configuration.Instance.DatabasePort == 0)
-                    Uconomy.Instance.Configuration.Instance.DatabasePort = 3306;
+                var port = m_Configuration.GetSection("DatabasePort").Get<ushort>();
+                if (port == 0)
+                    port = 3306;
 
                 var mySqlConnection = new MySqlConnection(
-                    $"SERVER={Uconomy.Instance.Configuration.Instance.DatabaseAddress};" +
-                    $"DATABASE={Uconomy.Instance.Configuration.Instance.DatabaseName};" +
-                    $"UID={Uconomy.Instance.Configuration.Instance.DatabaseUsername};" +
-                    $"PASSWORD={Uconomy.Instance.Configuration.Instance.DatabasePassword};" +
-                    $"PORT={Uconomy.Instance.Configuration.Instance.DatabasePort};");
+                    $"SERVER={m_Configuration.GetSection("DatabaseAddress").Get<ushort>()};" +
+                    $"DATABASE={m_Configuration.GetSection("DatabaseName").Get<ushort>()};" +
+                    $"UID={m_Configuration.GetSection("DatabaseUsername").Get<ushort>()};" +
+                    $"PASSWORD={m_Configuration.GetSection("DatabasePassword").Get<string>()};" +
+                    $"PORT={port};");
 
                 await using var command = mySqlConnection.CreateCommand();
-                var table = Uconomy.Instance.Configuration.Instance.DatabaseTableName;
+                var table = m_Configuration.GetSection("DatabaseTableName").Get<string>();
                 command.CommandText = $"SHOW TABLES LIKE '{table}';";
 
                 await mySqlConnection.OpenAsync();

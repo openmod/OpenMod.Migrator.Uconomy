@@ -4,7 +4,11 @@
     <RootNamespace>fr34kyn01535.Uconomy</RootNamespace>
     <AssemblyName>Uconomy</AssemblyName>
   </PropertyGroup>
-    
+
+  <ItemGroup>
+    <EmbeddedResource Include="config.yaml" />
+  </ItemGroup>
+
   <Import Project="Plugin.props" />
 
   <ItemGroup>

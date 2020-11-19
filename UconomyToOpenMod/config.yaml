@@ -1,0 +1,8 @@
+﻿#This config is just needed to connect to uconomy db to migrate data
+#if u dont want to migrate data or alreaddy did it, u dont need to setup this
+DatabaseAddress: 127.0.0.1
+DatabaseName: unturnedd
+DatabaseUsername: unturned
+DatabasePassword: password
+DatabasePort: 3306
+DatabaseTableName: uconomy
