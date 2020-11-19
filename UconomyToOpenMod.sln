@@ -5,6 +5,11 @@ VisualStudioVersion = 16.0.30330.147
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UconomyToOpenMod", "UconomyToOpenMod\UconomyToOpenMod.csproj", "{B2DF2BF1-2707-4B23-B9AB-11F261E0CE57}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E41C6CC7-B308-415F-9D43-7F15097DE097}"
+	ProjectSection(SolutionItems) = preProject
+		Plugin.props = Plugin.props
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

@@ -1,16 +1,19 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Threading.Tasks;
 using fr34kyn01535.Uconomy;
 using Microsoft.Extensions.Logging;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 using OpenMod.API.Commands;
 using OpenMod.Core.Commands;
 using OpenMod.Core.Console;
 using OpenMod.Core.Users;
 using OpenMod.Extensions.Economy.Abstractions;
 using Rocket.API;
+
+#endregion
 
 namespace RG.UconomyToOpenMod
 {
@@ -21,9 +24,6 @@ namespace RG.UconomyToOpenMod
     [CommandSyntax("[DeleteAfterMigrate]")]
     public class MigrateUconomyCommand : Command
     {
-        private readonly MethodInfo m_CreateConnectionMethod =
-            typeof(DatabaseManager).GetMethod("CreateConnection", BindingFlags.Instance | BindingFlags.NonPublic);
-
         private readonly IEconomyProvider m_EconomyProvider;
         private readonly ILogger<MigrateUconomyCommand> m_Logger;
 
@@ -47,11 +47,17 @@ namespace RG.UconomyToOpenMod
 
             try
             {
-                if (!(m_CreateConnectionMethod.Invoke(Uconomy.Instance.Database, null) is MySqlConnection
-                    mySqlConnection))
-                    throw new UserFriendlyException("It was not possible to create a mysql connection.");
+                if (Uconomy.Instance.Configuration.Instance.DatabasePort == 0)
+                    Uconomy.Instance.Configuration.Instance.DatabasePort = 3306;
 
-                using var command = mySqlConnection.CreateCommand();
+                var mySqlConnection = new MySqlConnection(
+                    $"SERVER={Uconomy.Instance.Configuration.Instance.DatabaseAddress};" +
+                    $"DATABASE={Uconomy.Instance.Configuration.Instance.DatabaseName};" +
+                    $"UID={Uconomy.Instance.Configuration.Instance.DatabaseUsername};" +
+                    $"PASSWORD={Uconomy.Instance.Configuration.Instance.DatabasePassword};" +
+                    $"PORT={Uconomy.Instance.Configuration.Instance.DatabasePort};");
+
+                await using var command = mySqlConnection.CreateCommand();
                 var table = Uconomy.Instance.Configuration.Instance.DatabaseTableName;
                 command.CommandText = $"SHOW TABLES LIKE '{table}';";
 
@@ -67,7 +73,7 @@ namespace RG.UconomyToOpenMod
 
                 await Context.Actor.PrintMessageAsync("Reading old data...");
 
-                using var reader = await command.ExecuteReaderAsync();
+                await using var reader = await command.ExecuteReaderAsync();
                 while (await reader.ReadAsync())
                 {
                     var steamId = reader.GetString(reader.GetOrdinal("steamId"));
