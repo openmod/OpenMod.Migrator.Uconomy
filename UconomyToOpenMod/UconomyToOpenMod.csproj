@@ -3,6 +3,7 @@
     <TargetFramework>net461</TargetFramework>
     <RootNamespace>fr34kyn01535.Uconomy</RootNamespace>
     <AssemblyName>Uconomy</AssemblyName>
+    <Version>0.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>

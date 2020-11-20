@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <PackageAuthors>Rube200</PackageAuthors>
-    <PackageId>$(AssemblyName)</PackageId>
+    <PackageId>UconomyToOpenMod</PackageId>
     <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
     <PackageOwners>Rube200</PackageOwners>
     <PackageProjectUrl>https://github.com/rube200/UconomyToOpenMod</PackageProjectUrl>
