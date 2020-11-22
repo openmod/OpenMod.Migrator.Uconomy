@@ -3,7 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
+using fr34kyn01535.Uconomy;
 using Microsoft.Extensions.Logging;
 using MySqlConnector;
 using OpenMod.API.Commands;
@@ -23,15 +23,13 @@ namespace RG.UconomyToOpenMod
     [CommandSyntax("[DeleteAfterMigrate]")]
     public class MigrateUconomyCommand : Command
     {
-        private readonly IConfiguration m_Configuration;
         private readonly IEconomyProvider m_EconomyProvider;
         private readonly ILogger<MigrateUconomyCommand> m_Logger;
 
-        public MigrateUconomyCommand(IConfiguration configuration, IEconomyProvider economyProvider, ILogger<MigrateUconomyCommand> logger,
+        public MigrateUconomyCommand(IEconomyProvider economyProvider, ILogger<MigrateUconomyCommand> logger,
             IServiceProvider serviceProvider) : base(
             serviceProvider)
         {
-            m_Configuration = configuration;
             m_EconomyProvider = economyProvider;
             m_Logger = logger;
         }
@@ -42,23 +40,25 @@ namespace RG.UconomyToOpenMod
             if (Context.Parameters.Length > 0)
                 shouldDelete = await Context.Parameters.GetAsync<bool>(0);
 
+            var config = Uconomy.Instance?.Configuration?.Instance;
+            if (config is null) return;
             await Context.Actor.PrintMessageAsync("Starting data migration, this may take some time.");
 
             try
             {
-                var port = m_Configuration.GetSection("DatabasePort").Get<ushort>();
+                var port = config.DatabasePort;
                 if (port == 0)
                     port = 3306;
 
                 var mySqlConnection = new MySqlConnection(
-                    $"SERVER={m_Configuration.GetSection("DatabaseAddress").Get<ushort>()};" +
-                    $"DATABASE={m_Configuration.GetSection("DatabaseName").Get<ushort>()};" +
-                    $"UID={m_Configuration.GetSection("DatabaseUsername").Get<ushort>()};" +
-                    $"PASSWORD={m_Configuration.GetSection("DatabasePassword").Get<string>()};" +
+                    $"SERVER={config.DatabaseAddress};" +
+                    $"DATABASE={config.DatabaseName};" +
+                    $"UID={config.DatabaseUsername};" +
+                    $"PASSWORD={config.DatabasePassword};" +
                     $"PORT={port};");
 
                 await using var command = mySqlConnection.CreateCommand();
-                var table = m_Configuration.GetSection("DatabaseTableName").Get<string>();
+                var table = config.DatabaseTableName;
                 command.CommandText = $"SHOW TABLES LIKE '{table}';";
 
                 await mySqlConnection.OpenAsync();

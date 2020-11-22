@@ -9,11 +9,11 @@ namespace fr34kyn01535.Uconomy
     public class UconomyConfiguration : IRocketPluginConfiguration
     {
         public string DatabaseAddress;
-        public string DatabaseUsername; 
+        public string DatabaseName;
         public string DatabasePassword;
         public int DatabasePort;
-        public string DatabaseName;
         public string DatabaseTableName;
+        public string DatabaseUsername;
 
         public decimal InitialBalance;
 

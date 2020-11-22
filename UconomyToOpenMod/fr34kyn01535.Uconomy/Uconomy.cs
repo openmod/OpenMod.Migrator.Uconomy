@@ -1,7 +1,9 @@
 ﻿#region
 
 using System;
-using Microsoft.Extensions.DependencyInjection;
+using OpenMod.Extensions.Economy.Abstractions;
+using Rocket.API.Collections;
+using Rocket.Core.Plugins;
 using Rocket.Unturned.Player;
 using Steamworks;
 
@@ -10,7 +12,7 @@ using Steamworks;
 namespace fr34kyn01535.Uconomy
 {
     // ReSharper disable once UnusedMember.Global
-    public sealed class Uconomy
+    public sealed class Uconomy : RocketPlugin<UconomyConfiguration>
     {
         public delegate void PlayerBalanceCheck(UnturnedPlayer player, decimal balance);
 
@@ -20,13 +22,34 @@ namespace fr34kyn01535.Uconomy
 
         public static Uconomy Instance;
 
+        public static string MessageColor;
+        public static IEconomyProvider EconomyProvider;
+
         public DatabaseManager Database;
 
-        public Uconomy(IServiceProvider serviceProvider)
+        public Uconomy()
         {
             Instance = this;
-            Database = ActivatorUtilities.CreateInstance<DatabaseManager>(serviceProvider);
+            Database = new DatabaseManager(EconomyProvider);
+            MessageColor = Configuration.Instance.MessageColor;
         }
+
+        public override TranslationList DefaultTranslations =>
+            new TranslationList
+            {
+                {"command_balance_show", "Your current balance is: {0} {1} {2}"},
+                {"command_balance_error_player_not_found", "Failed to find player!"},
+                {"command_balance_check_noPermissions", "Insufficent Permissions!"},
+                {"command_balance_show_otherPlayer", "{0}'s current balance is: {0} {1} {2}"},
+                {"command_pay_invalid", "Invalid arguments"},
+                {"command_pay_error_pay_self", "You cant pay yourself"},
+                {"command_pay_error_invalid_amount", "Invalid amount"},
+                {"command_pay_error_cant_afford", "Your balance does not allow this payment"},
+                {"command_pay_error_player_not_found", "Failed to find player"},
+                {"command_pay_private", "You paid {0} {1} {2}"},
+                {"command_pay_console", "You received a payment of {0} {1} "},
+                {"command_pay_other_private", "You received a payment of {0} {1} from {2}"}
+            };
 
         public event PlayerBalanceUpdate OnBalanceUpdate;
         public event PlayerBalanceCheck OnBalanceCheck;
