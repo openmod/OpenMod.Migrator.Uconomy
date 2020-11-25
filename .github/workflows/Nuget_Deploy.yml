@@ -8,7 +8,7 @@ on:
         required: true
 jobs:
   deploy:
-    name: "Uconomy to OpenMod Deployment"
+    name: "OpenMod UconomyToOpenMod Deployment"
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -22,10 +22,10 @@ jobs:
     - name: Install dependencies
       run: dotnet restore
     - name: Update version
-      run: "sed -i \"s#<Version>0.0.0</Version>#<Version>${{ github.event.inputs.version }}</Version>#\" UconomyToOpenMod/UconomyToOpenMod.csproj"  
+      run: "sed -i \"s#<Version>0.0.0</Version>#<Version>${{ github.event.inputs.version }}</Version>#\" OpenMod.UconomyToOpenMod/OpenMod.UconomyToOpenMod.csproj"  
     - name: Build
-      run: dotnet build UconomyToOpenMod/ --configuration Release --no-restore
+      run: dotnet build OpenMod.UconomyToOpenMod/OpenMod.UconomyToOpenMod.csproj --configuration Release --no-restore
     - name: Push to NuGet
-      run: dotnet nuget push UconomyToOpenMod/bin/Release/*.nupkg
+      run: dotnet nuget push OpenMod.UconomyToOpenMod/bin/Release/*.nupkg
              --api-key ${{ secrets.NUGET_DEPLOY_KEY }}
              --source https://api.nuget.org/v3/index.json
