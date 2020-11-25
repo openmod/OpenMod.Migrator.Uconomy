@@ -1,12 +1,12 @@
 
-# OpenMod.UconomyToOpenMod
+# OpenMod.Uconomy.Bridge
  Support rocketmod plugins to use OpenMod Economy
 
 ## Information
 This plugin redirects Uconomy plugin requests to any economy plugin created for Openmod
 
 ### Instalation
-You need to run `openmod install OpenMod.UconomyToOpenMod` on console to install the plugin.
+You need to run `openmod install OpenMod.Uconomy.Bridge` on console to install the plugin.
 And you are ready to go!
 
 ### Data Migration

@@ -1,12 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <PackageAuthors>OpenMod;Rube200</PackageAuthors>
-    <PackageId>OpenMod.UconomyToOpenMod</PackageId>
+    <PackageId>OpenMod.Uconomy.Bridge</PackageId>
     <PackageLicenseExpression>EUPL-1.2</PackageLicenseExpression>
     <PackageOwners>OpenMod;Rube200</PackageOwners>
-    <PackageProjectUrl>https://github.com/openmod/UconomyToOpenMod</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/openmod/OpenMod.Uconomy.Bridge</PackageProjectUrl>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PackageTags>OpenMod Plugin OpenMod.Economy OpenMod-Plugin Uconomy UconomyToOpenMod</PackageTags>
+    <PackageTags>OpenMod Plugin OpenMod.Economy OpenMod-Plugin Uconomy Uconomy.Bridge OpenMod.Uconomy.Bridge</PackageTags>
 
     <GenerateNugetPackage>true</GenerateNugetPackage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
