@@ -55,12 +55,10 @@ namespace RG.UconomyToOpenMod
             try
             {
                 var plugins = (IList)m_RocketPluginsManagerPlugins.GetValue(null);
-                var uconomyType = typeof(Uconomy);
-
-                if (plugins.Cast<object>().Any(plugin => plugin.GetType() == uconomyType))
+                if (plugins.Cast<GameObject>().Any(go => go.name == m_UconomyType.Name))
                     return;
 
-                var pluginGameObject = new GameObject(uconomyType.Name, uconomyType);
+                var pluginGameObject = new GameObject(m_UconomyType.Name, m_UconomyType);
                 Object.DontDestroyOnLoad(pluginGameObject);
                 plugins.Add(pluginGameObject);
             }
@@ -71,6 +69,8 @@ namespace RG.UconomyToOpenMod
         }
 
         #region Relection
+
+        private readonly Type m_UconomyType = typeof(Uconomy);
 
         private readonly MethodInfo m_OriginalLoadPlugins =
             typeof(RocketPluginManager).GetMethod("loadPlugins",
