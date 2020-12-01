@@ -8,7 +8,7 @@ on:
         required: true
 jobs:
   deploy:
-    name: "OpenMod UconomyToOpenMod Deployment"
+    name: "OpenMod.Uconomy.Bridge Deployment"
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -22,10 +22,10 @@ jobs:
     - name: Install dependencies
       run: dotnet restore
     - name: Update version
-      run: "sed -i \"s#<Version>0.0.0</Version>#<Version>${{ github.event.inputs.version }}</Version>#\" OpenMod.UconomyToOpenMod/OpenMod.UconomyToOpenMod.csproj"  
+      run: "sed -i \"s#<Version>0.0.0</Version>#<Version>${{ github.event.inputs.version }}</Version>#\" OpenMod.Uconomy.Bridge/OpenMod.Uconomy.Bridge.csproj"  
     - name: Build
-      run: dotnet build OpenMod.UconomyToOpenMod/OpenMod.UconomyToOpenMod.csproj --configuration Release --no-restore
+      run: dotnet build OpenMod.Uconomy.Bridge/OpenMod.Uconomy.Bridge.csproj --configuration Release --no-restore
     - name: Push to NuGet
-      run: dotnet nuget push OpenMod.UconomyToOpenMod/bin/Release/*.nupkg
+      run: dotnet nuget push OpenMod.Uconomy.Bridge/bin/Release/*.nupkg
              --api-key ${{ secrets.NUGET_DEPLOY_KEY }}
              --source https://api.nuget.org/v3/index.json
