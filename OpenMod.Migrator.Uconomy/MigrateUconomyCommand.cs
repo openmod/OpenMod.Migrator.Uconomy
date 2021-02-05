@@ -1,9 +1,6 @@
-﻿#region
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using fr34kyn01535.Uconomy;
 using Microsoft.Extensions.Logging;
 using MySqlConnector;
 using OpenMod.API.Commands;
@@ -12,11 +9,8 @@ using OpenMod.Core.Console;
 using OpenMod.Core.Users;
 using OpenMod.Extensions.Economy.Abstractions;
 
-#endregion
-
-namespace RG.UconomyToOpenMod
+namespace OpenMod.Migrator.Uconomy
 {
-    // ReSharper disable once UnusedMember.Global
     [Command("MigrateUconomy")]
     [CommandActor(typeof(ConsoleActor))]
     [CommandDescription("Migrates data from Uconomy to Openmod. (Console only)")]
@@ -38,17 +32,25 @@ namespace RG.UconomyToOpenMod
         {
             var shouldDelete = false;
             if (Context.Parameters.Length > 0)
+            {
                 shouldDelete = await Context.Parameters.GetAsync<bool>(0);
+            }
 
-            var config = Uconomy.Instance?.Configuration?.Instance;
-            if (config is null) return;
+            var config = fr34kyn01535.Uconomy.Uconomy.Instance?.Configuration?.Instance;
+            if (config == null)
+            {
+                return;
+            }
+
             await Context.Actor.PrintMessageAsync("Starting data migration, this may take some time.");
 
             try
             {
                 var port = config.DatabasePort;
                 if (port == 0)
+                {
                     port = 3306;
+                }
 
                 var mySqlConnection = new MySqlConnection(
                     $"SERVER={config.DatabaseAddress};" +
@@ -71,7 +73,7 @@ namespace RG.UconomyToOpenMod
                 var balanceData = new Dictionary<string, decimal>();
                 command.CommandText = $"SELECT * FROM `{table}`;";
 
-                await Context.Actor.PrintMessageAsync("Reading old data...");
+                await Context.Actor.PrintMessageAsync("Reading accounts from Uconomy...");
 
                 await using var reader = await command.ExecuteReaderAsync();
                 while (await reader.ReadAsync())
@@ -83,7 +85,7 @@ namespace RG.UconomyToOpenMod
                     balanceData.Add(steamId, balance);
                 }
 
-                await Context.Actor.PrintMessageAsync("Writing new data...");
+                await Context.Actor.PrintMessageAsync("Importing accounts...");
 
                 foreach (var data in balanceData)
                 {
@@ -98,8 +100,7 @@ namespace RG.UconomyToOpenMod
                     await command.ExecuteNonQueryAsync();
                 }
 
-                await Context.Actor.PrintMessageAsync(
-                    $"Data has been successfully migrated. Amount: {balanceData.Count}");
+                await Context.Actor.PrintMessageAsync($"{balanceData.Count} account(s) have been successfully migrated.");
             }
             catch (UserFriendlyException)
             {

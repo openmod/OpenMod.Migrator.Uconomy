@@ -1,19 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <PackageAuthors>OpenMod;Rube200</PackageAuthors>
-    <PackageId>OpenMod.Uconomy.Bridge</PackageId>
+    <PackageId>OpenMod.Migrator.Uconomy</PackageId>
     <PackageLicenseExpression>EUPL-1.2</PackageLicenseExpression>
     <PackageOwners>OpenMod;Rube200</PackageOwners>
-    <PackageProjectUrl>https://github.com/openmod/OpenMod.Uconomy.Bridge</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/openmod/OpenMod.Migrator.Uconomy</PackageProjectUrl>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PackageTags>OpenMod Plugin OpenMod.Economy OpenMod-Plugin Uconomy Uconomy.Bridge OpenMod.Uconomy.Bridge</PackageTags>
-
+    <PackageTags>OpenMod Plugin OpenMod.Economy OpenMod-Plugin Universal Uconomy Migrator OpenMod.Migrator.Uconomy</PackageTags>
+    <Nullable>enable</Nullable>
+    <WarningsAsErrors>CS8600;CS8602;CS8603</WarningsAsErrors>
     <GenerateNugetPackage>true</GenerateNugetPackage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-
     <Authors>OpenMod;Rube200</Authors>
     <Company>OpenMod</Company>
     <Description>Support rocketmod plugins to use OpenMod Economy</Description>
-    <LangVersion>8</LangVersion>
+    <LangVersion>9</LangVersion>
   </PropertyGroup>
 </Project>
