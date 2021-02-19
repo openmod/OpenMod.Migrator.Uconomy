@@ -6,7 +6,7 @@
     <PackageOwners>OpenMod;Rube200</PackageOwners>
     <PackageProjectUrl>https://github.com/openmod/OpenMod.Migrator.Uconomy</PackageProjectUrl>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PackageTags>OpenMod Plugin OpenMod.Economy OpenMod-Plugin Universal Uconomy Migrator OpenMod.Migrator.Uconomy</PackageTags>
+    <PackageTags>OpenMod Plugin OpenMod.Economy OpenMod-Plugin Unturned Uconomy Migrator OpenMod.Migrator.Uconomy</PackageTags>
     <Nullable>enable</Nullable>
     <WarningsAsErrors>CS8600;CS8602;CS8603</WarningsAsErrors>
     <GenerateNugetPackage>true</GenerateNugetPackage>
